@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.here.maps.app.dtos" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/dtos" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="196" x="454" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="com.here.maps.app.service.PlaceSearchApiServiceImpl" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/service/PlaceSearchApiServiceImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="286" width="386" x="3102" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.here.maps.app.controller.AbstractController" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/controller/AbstractController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="321" width="676" x="3980" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.here.maps.app.dtos.ResponseDTO" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/dtos/ResponseDTO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="232" width="170" x="3528" y="596"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.here.maps.app.cache.CacheForPlaceSearchImpl" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/cache/CacheForPlaceSearchImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="214" width="413" x="2649" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.here.maps.app.constants.PlaceSearchApiConstants" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/constants/PlaceSearchApiConstants.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="448" width="315" x="690" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.here.maps.app.HeremapsusecaseapplicationApplication" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/HeremapsusecaseapplicationApplication.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="106" width="310" x="1045" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="8" language="java" name="com.here.maps.app.constants" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/constants" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="234" x="1395" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="9" language="java" name="com.here.maps.app.cache.CacheForPlaceSearch" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/cache/CacheForPlaceSearch.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="160" width="185" x="2876" y="596"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="10" language="java" name="com.here.maps.app.controller" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="234" x="1669" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="com.here.maps.app.service" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="218" x="1943" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="com.here.maps.app.cache" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/cache" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="207" x="2201" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="13" language="java" name="com.here.maps.app.cache.CacheForPlaceSearchImpl.CacheObject" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/cache/CacheForPlaceSearchImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="214" width="175" x="2649" y="596"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="com.here.maps.app.service.PlaceSearchApiService" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/service/PlaceSearchApiService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="88" width="386" x="3102" y="596"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="15" language="java" name="com.here.maps.app" project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="161" x="2448" y="108"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="16" language="java" name="com.here.maps.app.controller.PlaceSearchApiController" 
+    project="heremapsusecaseapplication" 
+    file="/heremapsusecaseapplication/src/main/java/com/here/maps/app/controller/PlaceSearchApiController.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="124" width="412" x="3528" y="108"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="17">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="18" name="responseDTO"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="20">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <nesting id="21">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <association id="22">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="23" name="placeSearchApiService"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="26" name="cacheForPlaceSearch"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="28">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="29">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="30" name="responseDTO"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="33" name="responseDTO"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
