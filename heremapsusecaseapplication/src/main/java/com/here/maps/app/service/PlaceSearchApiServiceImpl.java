@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -40,6 +44,8 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 
 	private ResponseDTO responseDTO = new ResponseDTO();
 
+	JSONObject modifiedJsonObject = new JSONObject();
+
 	/**
 	 * Returns the Response DTO to the controller
 	 *
@@ -51,9 +57,9 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 	public ResponseDTO getTheRequiredPOIsBasedOnCityName(String receivedCityName) {
 		logger.trace("Enter inside :getTheRequiredPOIsBasedOnCityName");
 		String cityName = receivedCityName.replace(" ", "");
-		JSONObject finalJsonObject = getPoIsBasedOnCityName(cityName);
+		modifiedJsonObject = getPoIsBasedOnCityName(cityName);
 		responseDTO.setStatusCode(HttpStatus.OK.value());
-		responseDTO.setMessage(finalJsonObject.toString());
+		responseDTO.setMessage(modifiedJsonObject.toString());
 		logger.debug("{} Prepared the API Response and Sending back : {}",
 				PlaceSearchApiConstants.LOG_PREFIX_PLACE_API_PROCESSOR, responseDTO);
 		logger.trace("Exit from :getTheRequiredPOIsBasedOnCityName");
@@ -76,10 +82,7 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 		} catch (NumberFormatException e) {
 			logger.error("NumberFormatException occured : {}", e.getMessage());
 		}
-		JSONObject modifiedJsonObject = new JSONObject();
-		JSONArray jsonArray = new JSONArray();
-		JSONArray newJsonArray = new JSONArray();
-		JSONObject jsonObject = new JSONObject();
+
 		JSONObject jsonObj = getTheLattitudeAndLongitudeOfTheCity(cityName);
 		JSONObject geometryObj = jsonObj.has(PlaceSearchApiConstants.GEOMETRY)
 				? jsonObj.getJSONObject(PlaceSearchApiConstants.GEOMETRY)
@@ -95,16 +98,61 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 		}
 		logger.debug("The Coordinates of the mentioned City Lat : {}, Long : {}", lat, lng);
 
-		String cat = "";
 		for (int i = 0; i < categories.length; i++) {
-			cat = cat + categories[i].trim() + ",";
+			Future<JSONArray> modifiedJsonArray = getPoIsOfOneCategoryThread(categories[i].trim(), lat, lng);
+			try {
+				modifiedJsonObject.put(categories[i].trim(), modifiedJsonArray.get());
+			} catch (JSONException | InterruptedException | ExecutionException e) {
+				logger.error("Exception occurred while returning the object : {}", e.getMessage());
+			}
 		}
 
-		cat = cat.substring(0, cat.lastIndexOf(","));
+		logger.trace("Exit from :getPointsOfInterestForCityName");
+		return modifiedJsonObject;
+	}
+
+	/**
+	 * Thread for processing the Individual category
+	 *
+	 * @param cat
+	 * @param lat
+	 * @param lng
+	 * 
+	 * @return future
+	 */
+
+	public Future<JSONArray> getPoIsOfOneCategoryThread(String cat, String lat, String lng) {
+		logger.info("Parallel Execution for getPoIsOfOneCategoryThread of category : {}", cat);
+		Future<JSONArray> future = ExecutorServiceHelper.getExecutorPlaceSearchService()
+				.submit(new Callable<JSONArray>() {
+					public JSONArray call() {
+						JSONArray modifiedJsonArray = getPoIsOfOneCategory(cat, lat, lng);
+						return modifiedJsonArray;
+					}
+				});
+		return future;
+	}
+
+	/**
+	 * API hitting for individual category
+	 *
+	 * @param cat
+	 * @param lat
+	 * @param lng
+	 * 
+	 * @return newJsonArray
+	 */
+	private JSONArray getPoIsOfOneCategory(String cat, String lat, String lng) {
+		logger.trace("Entered inside :getPoIsOfOneCategory");
 		String url = "https://places.ls.hereapi.com/places/v1/discover/explore?at=" + lat + "," + lng + "&" + "cat="
 				+ cat + "&apiKey=" + PLACE_SEARCH_HERE_API_KEY;
 
 		logger.info("The URL used to get the POI's of Category {}, is : {}", cat, url);
+
+		JSONObject jsonObject = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		JSONArray newJsonArray = new JSONArray();
+
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(url);
 
@@ -119,21 +167,13 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 			if (receivedSuccessRsp != null && !receivedSuccessRsp.isEmpty()) {
 				jsonObject = receivedSuccessRsp.getJSONObject(PlaceSearchApiConstants.RESULTS);
 				jsonArray = jsonObject.getJSONArray(PlaceSearchApiConstants.ITEMS);
-				for (int i = 0; i < categories.length; i++) {
-					getPoIsOfIndividualType(jsonArray, categories[i].replace(",", "").trim(), newJsonArray);
-					if (newJsonArray != null && !newJsonArray.isEmpty()) {
-						modifiedJsonObject.put(categories[i].replace(",", "").trim(), getSortedJsonArray(newJsonArray));
-					} else {
-						modifiedJsonObject.put(categories[i].replace(",", "").trim(), new JSONArray());
-					}
-					newJsonArray = new JSONArray();
-				}
+				newJsonArray = getSortedJsonArray(jsonArray);
 			}
 		} catch (IOException e) {
 			logger.error("IOException occured : {}", e.getMessage());
 		}
-		logger.trace("Exit from :getPointsOfInterestForCityName");
-		return modifiedJsonObject;
+		logger.trace("Exit from :getPoIsOfOneCategory");
+		return newJsonArray;
 	}
 
 	/**
@@ -182,38 +222,6 @@ public class PlaceSearchApiServiceImpl implements PlaceSearchApiService {
 		}
 		logger.trace("Exit from :getTheLattitudeAndLongitudeOfTheCity");
 		return newJson;
-	}
-
-	/**
-	 * Obtains the PoIs of a particular type for the city by grouping JSONObject
-	 * data from the jsonArray to individual type and adds the grouped JSONObject
-	 * data to the newJsonArray.
-	 * 
-	 * @param cityName
-	 * @return newJson
-	 */
-
-	private void getPoIsOfIndividualType(JSONArray jsonArray, String categoryType, JSONArray newJsonArray) {
-		logger.trace("Enter inside :getPoIsOfIndividualType");
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject category = jsonArray.getJSONObject(i).has(PlaceSearchApiConstants.CATEGORY)
-					? jsonArray.getJSONObject(i).getJSONObject(PlaceSearchApiConstants.CATEGORY)
-					: null;
-			if (category.getString(PlaceSearchApiConstants.ID).equalsIgnoreCase(categoryType)
-					|| (categoryType.equalsIgnoreCase("Shopping")
-							&& (category.getString(PlaceSearchApiConstants.ID).equalsIgnoreCase("mall")
-									|| category.getString(PlaceSearchApiConstants.ID).equalsIgnoreCase("shop")
-									|| category
-											.getString(PlaceSearchApiConstants.ID)
-											.equalsIgnoreCase("clothing-accessories-shop"))
-							|| (categoryType.equalsIgnoreCase("restaurant") && (category
-									.getString(PlaceSearchApiConstants.ID).equalsIgnoreCase("dance-night-club")
-									|| category.getString(PlaceSearchApiConstants.ID).equalsIgnoreCase("bar-pub"))))) {
-				newJsonArray.put(jsonArray.getJSONObject(i));
-				jsonArray.remove(i);
-			}
-		}
-		logger.trace("Exit from :getPoIsOfIndividualType");
 	}
 
 	/**
